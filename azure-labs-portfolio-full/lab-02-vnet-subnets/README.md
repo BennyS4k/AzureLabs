@@ -1,3 +1,3 @@
 # Lab 02 Vnet Subnets
 
-Short lab description goes here.
+This lab creates both VNets and Subnets in Azure
