@@ -1,3 +1,3 @@
 # Lab 01 Resource Group
 
-Short lab description goes here.
+This lab is to create a resource group in UK South - called "rg-bclabs-core"
