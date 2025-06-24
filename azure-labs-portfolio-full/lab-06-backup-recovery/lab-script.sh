@@ -16,4 +16,4 @@ az backup protection enable-for-vm \
   --vault-name backup-vault \
   --resource-group rg-bclabs-core \
   --vm vm-web01 \
-  --policy-name DefaultPolicy
+  --policy-name DefaultPolicy ##had to use --policy-name EnhancedPolicy here
