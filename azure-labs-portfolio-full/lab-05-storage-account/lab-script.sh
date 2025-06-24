@@ -2,8 +2,8 @@
 
 # Create secure storage account
 az storage account create \
-  --name labstorage12345 \
-  --resource-group rg-labs-core \
+  --name bclabstorage001 \
+  --resource-group rg-bclabs-core \
   --location uksouth \
   --sku Standard_LRS \
   --kind StorageV2 \
@@ -14,5 +14,5 @@ az storage account create \
 # Create blob container
 az storage container create \
   --name blob-container \
-  --account-name labstorage12345 \
+  --account-name bcblob001 \
   --auth-mode login
