@@ -1,2 +1,0 @@
-az login
-az group create --name rg-labs-core --location uksouth
