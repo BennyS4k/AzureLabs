@@ -2,7 +2,7 @@
 
 # Create secure storage account
 az storage account create \
-  --name bclabstorage001 \
+  --name bcblob001 \
   --resource-group rg-bclabs-core \
   --location uksouth \
   --sku Standard_LRS \
