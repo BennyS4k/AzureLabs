@@ -1,3 +1,3 @@
 # Lab 04 Nsg Rules
 
-Short lab description goes here.
+After the VM Creation - it created two NSGs (Network Security Groups) - This lab is to amend and assign specific rules for traffic flow
