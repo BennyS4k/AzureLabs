@@ -7,6 +7,7 @@ This repository showcases a series of practical Azure labs I’ve built to gain 
 These labs simulate real-world scenarios aligned with cloud support and security roles. All work was completed manually using:
 - **Azure CLI (in Azure Cloud Shell)**
 - **Terraform (for Infrastructure-as-Code)**
+- - **Bicep/ARM (for Infrastructure-as-Code)**
 - **Azure Portal (for validation and visibility)**
 
 Key areas covered:
