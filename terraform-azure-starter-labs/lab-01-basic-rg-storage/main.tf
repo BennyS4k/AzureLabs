@@ -1,0 +1,1 @@
+# Terraform config for Lab 01 Basic Rg Storage

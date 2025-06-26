@@ -1,0 +1,1 @@
+# Terraform config for Lab 05 Variable Module Output
