@@ -31,8 +31,8 @@ jobs:
       - name: 🧪 Terraform Plan
         run: terraform plan -input=false -no-color -out=tfplan
 
-     - name: 🚀 Terraform Apply (manual trigger only)
-  if: github.event_name == 'workflow_dispatch'
-  run: terraform apply -input=false -auto-approve tfplan
-  env:
-    TF_LOG: ERROR
+      - name: 🚀 Terraform Apply (manual trigger only)
+        if: github.event_name == 'workflow_dispatch'
+        run: terraform apply -input=false -auto-approve tfplan
+        env:
+         TF_LOG: ERROR
