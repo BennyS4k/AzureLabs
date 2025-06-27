@@ -7,11 +7,32 @@ provider "azurerm" {
   tenant_id       = "4f7487d1-4c54-4260-89e9-4ba6bfc22735"
 }
 
+# --------------------
+# Variables
+# --------------------
+variable "vm_admin_username" {
+  description = "bcoyne"
+  type        = string
+  default     = "azureuser"
+}
+
+variable "vm_admin_password" {
+  description = "Bumblebea23!"
+  type        = string
+  sensitive   = true
+}
+
+# --------------------
+# Resource Group
+# --------------------
 resource "azurerm_resource_group" "rg" {
   name     = "fedoratestbox-rg"
   location = "UK South"
 }
 
+# --------------------
+# Virtual Network
+# --------------------
 resource "azurerm_virtual_network" "vnet" {
   name                = "linuxtst-vnet"
   address_space       = ["10.0.0.0/16"]
@@ -19,6 +40,9 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+# --------------------
+# Subnet
+# --------------------
 resource "azurerm_subnet" "subnet" {
   name                 = "default"
   resource_group_name  = azurerm_resource_group.rg.name
@@ -26,13 +50,16 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
+# --------------------
+# Network Security Group
+# --------------------
 resource "azurerm_network_security_group" "nsg" {
   name                = "fedora-nsg"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
   security_rule {
-    name                       = "SSH"
+    name                       = "AllowSSH"
     priority                   = 1001
     direction                  = "Inbound"
     access                     = "Allow"
@@ -44,11 +71,17 @@ resource "azurerm_network_security_group" "nsg" {
   }
 }
 
+# --------------------
+# NSG Association
+# --------------------
 resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
   subnet_id                 = azurerm_subnet.subnet.id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
 
+# --------------------
+# Public IP
+# --------------------
 resource "azurerm_public_ip" "public_ip" {
   name                = "fedora-vm-ip"
   location            = azurerm_resource_group.rg.location
@@ -56,6 +89,9 @@ resource "azurerm_public_ip" "public_ip" {
   allocation_method   = "Dynamic"
 }
 
+# --------------------
+# Network Interface
+# --------------------
 resource "azurerm_network_interface" "nic" {
   name                = "fedora-nic"
   location            = azurerm_resource_group.rg.location
@@ -69,19 +105,18 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
+# --------------------
+# Fedora Linux VM
+# --------------------
 resource "azurerm_linux_virtual_machine" "fedora_vm" {
   name                            = "fedoratestbox-vm"
   resource_group_name             = azurerm_resource_group.rg.name
   location                        = azurerm_resource_group.rg.location
   size                            = "Standard_D4s_v3"
-  admin_username                  = "azureuser"
+  admin_username                  = var.vm_admin_username
+  admin_password                  = var.vm_admin_password
+  disable_password_authentication = false
   network_interface_ids           = [azurerm_network_interface.nic.id]
-  disable_password_authentication = true
-
-  admin_ssh_key {
-    username   = "azureuser"
-    public_key = file("~/.ssh/id_rsa.pub") # Replace with your public key path
-  }
 
   os_disk {
     caching              = "ReadWrite"
@@ -94,4 +129,12 @@ resource "azurerm_linux_virtual_machine" "fedora_vm" {
     sku       = "38-gen2"
     version   = "latest"
   }
+}
+
+# --------------------
+# Output
+# --------------------
+output "public_ip_address" {
+  value       = azurerm_public_ip.public_ip.ip_address
+  description = "Public IP address of the Fedora VM"
 }
