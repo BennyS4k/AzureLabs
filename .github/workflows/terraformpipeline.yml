@@ -35,6 +35,8 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan
+        env:
+          TF_LOG: DEBUG
 
       - name: tfsec Security Scan
         uses: aquasecurity/tfsec-action@v1.0.0
