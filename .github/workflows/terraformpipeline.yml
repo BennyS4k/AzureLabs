@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - production
   pull_request:
 
 permissions:
@@ -40,10 +40,6 @@ jobs:
         uses: aquasecurity/tfsec-action@v1.0.0
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
+        if: github.ref == 'refs/heads/production' && github.event_name == 'workflow_dispatch'
         run: terraform apply -auto-approve
-        env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        
