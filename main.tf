@@ -126,10 +126,10 @@ resource "azurerm_linux_virtual_machine" "fedora_vm" {
   }
 
   source_image_reference {
-    publisher = "fedora"
-    offer     = "fedora"
-    sku       = "38-gen2"
-    version   = "latest"
+  publisher = "FedoraProject"
+  offer     = "fedoralinux"
+  sku       = "36"
+  version   = "latest"
   }
 }
 
