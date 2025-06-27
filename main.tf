@@ -11,13 +11,13 @@ provider "azurerm" {
 # Variables
 # --------------------
 variable "vm_admin_username" {
-  description = "bcoyne"
+  description = "username for vm"
   type        = string
-  default     = "azureuser"
+  default     = "bcoyne"
 }
 
 variable "vm_admin_password" {
-  description = "Bumblebea23!"
+  description = "Password for VM"
   type        = string
   sensitive   = true
 }
