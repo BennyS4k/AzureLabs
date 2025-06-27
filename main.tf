@@ -126,9 +126,9 @@ resource "azurerm_linux_virtual_machine" "fedora_vm" {
   }
 
   source_image_reference {
-  publisher = "FedoraProject"
-  offer     = "fedoralinux"
-  sku       = "36"
+  publisher = "Canonical"
+  offer     = "0001-com-ubuntu-server-jammy"
+  sku       = "22_04-lts"
   version   = "latest"
   }
 }
